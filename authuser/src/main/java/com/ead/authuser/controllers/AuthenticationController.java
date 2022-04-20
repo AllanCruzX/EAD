@@ -29,15 +29,13 @@ public class AuthenticationController {
     @PostMapping("/signup")
     public ResponseEntity<Object> registerUser(@RequestBody @Validated(UserDto.UserView.RegistrationPost.class)
                                                @JsonView(UserDto.UserView.RegistrationPost.class) UserDto userDto){
-
-        log.debug("POST registerUser UserDto received {} ", userDto.toString());
-
+        log.debug("POST registerUser userDto received {} ", userDto.toString());
         if(userService.existsByUsername(userDto.getUsername())){
-            log.warn("Error: Username {} is Already Taken ", userDto.getUsername());
+            log.warn("Username {} is Already Taken ", userDto.getUsername());
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Error: Username is Already Taken!");
         }
         if(userService.existsByEmail(userDto.getEmail())){
-            log.warn("Error: Email {} is Already Taken ", userDto.getEmail());
+            log.warn("Email {} is Already Taken ", userDto.getEmail());
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Error: Email is Already Taken!");
         }
         var userModel = new UserModel();
@@ -46,10 +44,19 @@ public class AuthenticationController {
         userModel.setUserType(UserType.STUDENT);
         userModel.setCreationDate(LocalDateTime.now(ZoneId.of("UTC")));
         userModel.setLastUpdateDate(LocalDateTime.now(ZoneId.of("UTC")));
-        userService.save(userModel);
+        userService.saveUser(userModel);
         log.debug("POST registerUser userId saved {} ", userModel.getUserId());
-        log.info("User saved sucessfully userId {} ", userModel.getUserId());
+        log.info("User saved successfully userId {} ", userModel.getUserId());
         return  ResponseEntity.status(HttpStatus.CREATED).body(userModel);
     }
 
+    @GetMapping("/")
+    public String index(){
+        log.trace("TRACE");
+        log.debug("DEBUG");
+        log.info("INFO");
+        log.warn("WARN");
+        log.error("ERROR");
+        return "Logging Spring Boot...";
+    }
 }
