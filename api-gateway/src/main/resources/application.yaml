@@ -1,6 +1,7 @@
+#uri: -> "lb://EAD-NOTIFICATION-SERVICE" é o ID do eureka
+
 server:
   port: 8080
-
 
 spring:
   application:
@@ -16,7 +17,10 @@ spring:
           uri: lb://EAD-COURSE-SERVICE
           predicates:
             - Path=/ead-course/**
-
+        - id: notification-service
+          uri: lb://EAD-NOTIFICATION-SERVICE
+          predicates:
+            - Path=/ead-notification/**
 
 eureka:
   client:

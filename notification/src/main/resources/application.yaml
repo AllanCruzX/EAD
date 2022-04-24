@@ -1,11 +1,11 @@
 server:
-  port: 8082
+  port: 8084
   servlet:
-    context-path: '/ead-course/'
+    context-path: '/ead-notification/'
 
 spring:
   application:
-    name: ead-course-service
+    name: ead-notification-service
   config:
     import: 'optional:configserver:'
   cloud:
@@ -13,7 +13,7 @@ spring:
       discovery:
         serviceId: ead-config-server
   datasource:
-    url:  jdbc:postgresql://localhost:5432/ead-course-v2
+    url:  jdbc:postgresql://localhost:5432/ead-notification-v2
     username: postgres
     password: admin
   jpa:
@@ -29,7 +29,7 @@ spring:
     ansi:
       enabled: Always
   rabbitmq:
-    addresses:  amqps://nmkvknfe:MuXOYf3ZqS9FIGqzQMPp6kufgmV2taj_@toad.rmq.cloudamqp.com/nmkvknfe
+    addresses: amqps://nmkvknfe:MuXOYf3ZqS9FIGqzQMPp6kufgmV2taj_@toad.rmq.cloudamqp.com/nmkvknfe
 
 
 logging:
@@ -40,18 +40,15 @@ logging:
     org.hibernate: INFO
 
 ead:
-  api:
-    url:
-      authuser: 'http://ead-authuser-service/ead-authuser'
   broker:
     exchange:
-      userEventExchange: ead.userevent
       notificationCommandExchange: ead.notificationcommand
     queue:
-      userEventQueue:
-        name: ead.userevent.ms.course
+      notificationCommandQueue:
+        name: ead.notificationcommand.ms.notification
     key:
       notificationCommandKey: ms.notification
+
 
 management:
   endpoints:

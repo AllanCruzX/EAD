@@ -11,7 +11,7 @@ spring:
           uri: https://github.com/AllanCruzX/ead-config-server-repo
           default-label: main
           username: AllanCruzX
-          password: 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
+          password:
 
 eureka:
   client:
