@@ -2,7 +2,5 @@ spring:
   profiles:
     active: dev
   application:
-    name: ead-config-server
-
-
+    name: ead-notification-service-hex
 
